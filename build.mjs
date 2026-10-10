@@ -60,4 +60,5 @@ if (process.argv[1] === import.meta.filename) {
     card(g, join(dir, 'og.jpg'));
     console.log(`${SITE}i/${slugs[k]}/`);
   });
+  writeFileSync(join(root, 'links.txt'), guests.map((g, k) => `${g}: ${SITE}i/${slugs[k]}/`).join('\n') + '\n');
 }
