@@ -1,0 +1,5 @@
+# Un invitado por línea. Luego: node build.mjs && git add -A && git commit -m "Invitados" && git push
+Gabriel J Lopez
+Jose V. Lopez
+Francisca Ozuna
+Crismari Lisbeth

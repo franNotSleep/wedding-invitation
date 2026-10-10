@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tarjeta</title>
+<!-- Rendered to i/<slug>/og.jpg by build.mjs (1200×630, the WhatsApp/Open Graph preview). ?name= sets the guest. -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Montserrat:wght@300;400;500&amp;display=block" rel="stylesheet">
+<style>
+:root{--bg:#F8F0DD;--bg2:#EEDDB8;--ink:#2B2416;--ink2:#6B5A38;--accent:#4E6B47;--gold:#B8913F;--line:#C9AE72}
+html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+body{position:relative;background:radial-gradient(120% 140% at 70% 30%,var(--bg) 0%,var(--bg) 45%,var(--bg2) 100%);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+/* paper grain */
+.grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:multiply}
+/* stationery frame: double gold hairline */
+.frame{position:absolute;inset:22px;border:1px solid var(--line);border-radius:6px}
+.frame::after{content:"";position:absolute;inset:6px;border:1px solid rgba(201,174,114,.55);border-radius:3px}
+.photo{position:absolute;left:78px;top:62px;width:404px;height:506px;border-radius:202px 202px 18px 18px;overflow:hidden;box-shadow:0 2px 4px rgba(80,55,20,.12),0 22px 48px rgba(80,55,20,.22)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo::after{content:"";position:absolute;inset:8px;border:1px solid rgba(255,248,230,.7);border-radius:194px 194px 12px 12px}
+.text{position:absolute;left:530px;right:70px;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.lead{margin:0;font-size:15px;font-weight:400;letter-spacing:.34em;text-transform:uppercase;color:var(--accent)}
+.name{margin:14px 0 0;font-family:'Great Vibes',cursive;font-weight:400;line-height:1.08;color:var(--ink);white-space:nowrap}
+.rule{display:flex;align-items:center;gap:14px;margin:26px 0 22px;width:360px}
+.rule i{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line))}
+.rule i:last-child{background:linear-gradient(270deg,transparent,var(--line))}
+.rule b{width:9px;height:9px;transform:rotate(45deg);background:linear-gradient(135deg,#FFF4D2,#B8913F 60%,#8C6A2E)}
+.couple{margin:0;font-family:'Great Vibes',cursive;font-size:50px;line-height:1.1;color:var(--accent)}
+.couple.big{font-size:104px;color:var(--ink);margin-top:8px}
+.date{margin:12px 0 0;font-size:16px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--ink2)}
+/* the page's gold rings, resting on the corner */
+.rings{position:absolute;right:58px;top:46px;width:96px;height:96px;perspective:700px}
+.rings div{position:absolute;border-radius:50%;filter:drop-shadow(0 3px 4px rgba(80,55,20,.35))}
+.r1{left:0;top:14%;width:68%;height:68%;background:conic-gradient(from 20deg,#8C6A2E,#F6E3A8,#B8913F,#FFF4D2,#9C7630,#EBD18D,#8C6A2E);-webkit-mask:radial-gradient(farthest-side,transparent 82%,#000 84%);transform:rotateY(22deg)}
+.r2{left:32%;top:20%;width:62%;height:62%;background:conic-gradient(from 200deg,#9C7630,#F3DFA2,#A9833F,#FFF1C9,#8C6A2E,#E9CF8A,#9C7630);-webkit-mask:radial-gradient(farthest-side,transparent 80%,#000 82%);transform:rotateY(-48deg) rotateX(18deg)}
+.gem{position:absolute;left:24%;top:4%;width:12%;height:12%;transform:rotate(45deg);background:linear-gradient(135deg,#fff,#E6EEF2 40%,#B9C7CF 60%,#fff);box-shadow:0 0 10px rgba(255,255,255,.9);border-radius:2px}
+</style>
+</head>
+<body>
+<svg class="grain" width="1200" height="630" aria-hidden="true"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .42  0 0 0 0 .35  0 0 0 0 .22  0 0 0 .5 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="frame"></div>
+<div class="photo"><img src="uploads/foto-portada.webp" alt=""></div>
+<div class="rings" aria-hidden="true"><div class="r1"></div><div class="gem"></div><div class="r2"></div></div>
+<div class="text">
+  <p class="lead" id="lead">Dedicado especialmente a</p>
+  <p class="name" id="name"></p>
+  <div class="rule"><i></i><b></b><i></i></div>
+  <p class="couple">Francisco &amp; Crismari</p>
+  <p class="date">12 · XII · 2026</p>
+</div>
+<script>
+const name = (new URLSearchParams(location.search).get('name') || '').trim();
+const el = document.getElementById('name');
+if (name) el.textContent = name;
+else { document.getElementById('lead').textContent = 'Te invitamos a nuestra boda'; el.remove(); document.querySelector('.couple').classList.add('big'); }
+// shrink long names to fit the column (max 112px)
+document.fonts.ready.then(() => {
+  if (!name) return;
+  const max = el.parentElement.clientWidth;
+  let s = 112; el.style.fontSize = s + 'px';
+  while (el.scrollWidth > max && s > 48) el.style.fontSize = (s -= 2) + 'px';
+  document.body.dataset.ready = '1';
+});
+</script>
+</body>
+</html>
