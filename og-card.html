@@ -58,6 +58,7 @@ document.fonts.ready.then(() => {
   const max = el.parentElement.clientWidth;
   let s = 112; el.style.fontSize = s + 'px';
   while (el.scrollWidth > max && s > 48) el.style.fontSize = (s -= 2) + 'px';
+  if (el.scrollWidth > max) { el.style.whiteSpace = 'normal'; el.style.textWrap = 'balance'; el.style.fontSize = '60px'; } // still too long (group invitations): wrap instead
   document.body.dataset.ready = '1';
 });
 </script>
