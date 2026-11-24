@@ -200,6 +200,7 @@ html.locked,html.locked body{overflow:hidden}
 </div>
 </section>
 
+<!--gifts-->
 <section style="width:100%;display:flex;flex-direction:column;align-items:center;gap:32px">
 <h2 style="margin:0;font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,8vw,60px);line-height:1.15;text-align:center">Mesa de regalos</h2>
 <div style="width:100%;max-width:460px;display:flex;flex-direction:column">
@@ -232,10 +233,11 @@ html.locked,html.locked body{overflow:hidden}
 <span style="font-size:15px">RD$ · Pesos dominicanos</span>
 </div>
 </div>
-<button id="copy" class="btn" type="button">Copiar número de cuenta</button>
+<button id="copy" class="btn" type="button" data-n="840975379">Copiar número de cuenta</button>
 </article>
 </div>
 </section>
+<!--/gifts-->
 
 <footer style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;padding-top:16px">
 <div style="width:min(100%,560px);aspect-ratio:16/10;border-radius:24px;overflow:hidden"><img src="uploads/foto-cierre.jpg" alt="Francisco y Crismari tomados de la mano" class="photo" style="object-position:center 55%"></div>
@@ -252,9 +254,9 @@ const g = (new URLSearchParams(location.search).get('guess') || '').trim().repla
 if (g) { document.getElementById('guest').textContent = g; document.title = 'Invitación para ' + g + ' · Francisco & Crismari'; }
 
 const copy = document.getElementById('copy');
-copy.onclick = () => {
+if (copy) copy.onclick = () => {
   const done = () => { copy.textContent = 'Número copiado ✓'; clearTimeout(copy.t); copy.t = setTimeout(() => copy.textContent = 'Copiar número de cuenta', 2000); };
-  navigator.clipboard ? navigator.clipboard.writeText('840975379').then(done, done) : done();
+  navigator.clipboard ? navigator.clipboard.writeText(copy.dataset.n).then(done, done) : done();
 };
 
 const ring = document.getElementById('ring');

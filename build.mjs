@@ -11,6 +11,7 @@ const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const root = resolve(import.meta.dirname);
 
 export const slug = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const NO_GIFTS = new Set(['melky-photo', 'ludmila-perez']); // slugs whose page omits the bank account section
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function card(name, out) {
@@ -21,7 +22,7 @@ function card(name, out) {
   execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '86', png, '--out', out], { stdio: 'ignore' });
 }
 
-function page(name, s) {
+export function page(name, s) {
   const n = esc(name), url = `${SITE}i/${s}/`;
   const og = `<meta name="description" content="${n}, te invitamos a celebrar nuestra boda. Sábado 12 de diciembre de 2026.">
 <meta property="og:type" content="website">
@@ -41,8 +42,8 @@ function page(name, s) {
     .replace(/<title>.*?<\/title>/, `<title>Invitación para ${n} · Francisco &amp; Crismari</title>`)
     .replace(/<!--og-->[\s\S]*?<!--\/og-->/, og)
     .replace('>Invitado especial<', `>${n}<`);
-  if (html === src || html.includes('>Invitado especial<')) throw new Error('index.html markers changed; update build.mjs');
-  return html;
+  if (html === src || html.includes('>Invitado especial<') || !html.includes('<!--gifts-->')) throw new Error('index.html markers changed; update build.mjs');
+  return NO_GIFTS.has(s) ? html.replace(/<!--gifts-->[\s\S]*?<!--\/gifts-->\n*/, '') : html;
 }
 
 if (process.argv[1] === import.meta.filename) {

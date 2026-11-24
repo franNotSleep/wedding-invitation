@@ -200,43 +200,6 @@ html.locked,html.locked body{overflow:hidden}
 </div>
 </section>
 
-<section style="width:100%;display:flex;flex-direction:column;align-items:center;gap:32px">
-<h2 style="margin:0;font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,8vw,60px);line-height:1.15;text-align:center">Mesa de regalos</h2>
-<div style="width:100%;max-width:460px;display:flex;flex-direction:column">
-<article style="background:var(--w-card);border:1px solid var(--w-border);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center">
-<div style="height:56px;display:flex;align-items:center;justify-content:center"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Popular_bank_logo.png" alt="Banco Popular Dominicano" style="height:44px;width:auto;display:block;mix-blend-mode:multiply"></div>
-<p style="margin:0;font-size:15px;line-height:1.6;color:var(--w-ink2);text-wrap:pretty">Tu presencia es nuestro mejor regalo. Si deseas tener un detalle con nosotros, aquí están los datos de nuestra cuenta.</p>
-<div style="width:100%;background:var(--w-bg);border-radius:12px;padding:8px 20px;box-sizing:border-box;display:flex;flex-direction:column;text-align:left">
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--w-border)">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Banco</span>
-<span style="font-size:15px;font-weight:400;text-align:right">Banco Popular Dominicano</span>
-</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--w-border)">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Titular</span>
-<span style="font-size:15px;font-weight:400;text-align:right">Francisco José López Ozuna</span>
-</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--w-border)">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Cédula</span>
-<span style="font-size:15px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums">402-3326917-0</span>
-</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--w-border)">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Tipo de cuenta</span>
-<span style="font-size:15px;font-weight:400;text-align:right">Corriente</span>
-</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--w-border)">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Número de cuenta</span>
-<span style="font-size:18px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;letter-spacing:0.06em">840975379</span>
-</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0">
-<span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w-ink3)">Moneda</span>
-<span style="font-size:15px">RD$ · Pesos dominicanos</span>
-</div>
-</div>
-<button id="copy" class="btn" type="button">Copiar número de cuenta</button>
-</article>
-</div>
-</section>
-
 <footer style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;padding-top:16px">
 <div style="width:min(100%,560px);aspect-ratio:16/10;border-radius:24px;overflow:hidden"><img src="uploads/foto-cierre.jpg" alt="Francisco y Crismari tomados de la mano" class="photo" style="object-position:center 55%"></div>
 <p style="margin:0;font-family:'Great Vibes',cursive;font-size:clamp(44px,9vw,72px);line-height:1.05">Te esperamos</p>
@@ -252,9 +215,9 @@ const g = (new URLSearchParams(location.search).get('guess') || '').trim().repla
 if (g) { document.getElementById('guest').textContent = g; document.title = 'Invitación para ' + g + ' · Francisco & Crismari'; }
 
 const copy = document.getElementById('copy');
-copy.onclick = () => {
+if (copy) copy.onclick = () => {
   const done = () => { copy.textContent = 'Número copiado ✓'; clearTimeout(copy.t); copy.t = setTimeout(() => copy.textContent = 'Copiar número de cuenta', 2000); };
-  navigator.clipboard ? navigator.clipboard.writeText('840975379').then(done, done) : done();
+  navigator.clipboard ? navigator.clipboard.writeText(copy.dataset.n).then(done, done) : done();
 };
 
 const ring = document.getElementById('ring');
